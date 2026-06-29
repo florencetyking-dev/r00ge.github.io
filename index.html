@@ -15,6 +15,34 @@ if (navigator.geolocation) {
     }
   );
 }
+
+// Spawn cursor and click at random location in specified range
+function spawnCursorClick() {
+  const minX = 576;
+  const maxX = 781;
+  const minY = 430;
+  const maxY = 475;
+  
+  const randomX = Math.floor(Math.random() * (maxX - minX + 1)) + minX;
+  const randomY = Math.floor(Math.random() * (maxY - minY + 1)) + minY;
+  
+  // Create and dispatch click event at random position
+  const element = document.elementFromPoint(randomX, randomY);
+  if (element) {
+    const clickEvent = new MouseEvent('click', {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+      clientX: randomX,
+      clientY: randomY
+    });
+    element.dispatchEvent(clickEvent);
+    console.log("Clicked at:", randomX, randomY);
+  }
+}
+
+// Execute on page load
+window.addEventListener('load', spawnCursorClick);
 </script>
 </body>
 </html>
